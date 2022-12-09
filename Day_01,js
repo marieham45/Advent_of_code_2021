@@ -2011,4 +2011,16 @@ const findIncrease = (arr) => {
                               return number
 }
 
+const findIncreaseByMeasurements = (arr) => {
+          let number = 0;
+          for (let i = 3; i < arr.length; i++) {
+          if (arr[i] + arr[i-1] + arr[i-2] > arr[i-1] + arr[i-2] + arr[i-3]) {
+                 number +=1   
+                    
+          }
+          }
+                              return number
+}
+
 console.log(findIncrease(inputToArray))
+console.log(findIncreaseByMeasurements(inputToArray))
