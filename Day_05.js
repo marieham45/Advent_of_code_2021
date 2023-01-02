@@ -15,7 +15,9 @@ const findCoordinates = (arr) => {
     return arr.map(item => item.split(",")).join(",").split(",").map(Number);
 }
 
-const verticalAndHorizontalCoordinates = coordinates.map(findCoordinates).filter(num => num[0] === num[2] || num[1] === num[3]);
+/* PART 1 */
+
+const allCoordinates = coordinates.map(findCoordinates)
 
 const sorting = (line) => {
     if (line[0] === line[2]) {
@@ -53,14 +55,72 @@ const lines = (arr) => {
     return diagram
 }
 
-const diagramWithLines = lines(verticalAndHorizontalCoordinates.map(sorting))
+const diagramWithLines = lines(allCoordinates.map(sorting))
 
 const score = diagramWithLines.map(line => line.filter(num => num >= 2)).filter(line => line.length > 0).map(line => line = line.length).reduce((num, sum) => sum + num, 0)
 
 console.log(score)
 
 
+/* PART 2 */
 
+const AllLines = (arr) => {
+    let diagram = [];
+    for (let i = 0; i < 1000; i++) {
+        diagram[i] = [];
+        for (let j = 0; j < 1000; j++) {
+            diagram[i][j] = 0
+        }
+         }
+    
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i][0] === arr[i][2]) {
+            for (let j = 0; j <= arr[i][3] - arr[i][1]; j++)
+            diagram[arr[i][1] +j][arr[i][0]] += 1
+        }
+        else if (arr[i][1] === arr[i][3]) {
+            for (let j = 0; j <= arr[i][2] - arr[i][0]; j++)
+            diagram[arr[i][1]][arr[i][0] +j] += 1
 
+        }
+        else {
+               //right -> left
+                if (arr[i][0] > arr[i][2]) {
+                    // bottom-right -> top-left
+                    if (arr[i][1] > arr[i][3]) {
+                        for (let j = 0; j <= Math.abs(arr[i][0] - arr[i][2]); j++) {
+                        diagram[arr[i][1] -j][arr[i][0] -j] += 1}
+                    }
+                    // top-right -> bottom-left
+                    else {
+                        for (let j = 0; j <= Math.abs(arr[i][0] - arr[i][2]); j++) {
+                        diagram[arr[i][1] +j][arr[i][0] -j] += 1}
 
+                    }}
+                //left -> right
+                else {
+                    // bottom-left -> top-right
+                    if (arr[i][1] > arr[i][3]) {
+                        for (let j = 0; j <= Math.abs(arr[i][0] - arr[i][2]); j++) {
+                        diagram[arr[i][1] -j][arr[i][0] +j] += 1}
+                    }
+                    // top-left -> bottom-right
+                    else {
+                        for (let j = 0; j <= Math.abs(arr[i][0] - arr[i][2]); j++) {
+                       diagram[arr[i][1] +j][arr[i][0] +j] += 1 }
 
+                    }  
+                    }
+                
+            
+        }
+        
+    }
+    return diagram
+}
+
+const diagramWithAllLines = AllLines(allCoordinates.map(sorting))
+
+const scoreAll = diagramWithAllLines.map(line => line.filter(num => num >= 2)).filter(line => line.length > 0).map(line => line = line.length).reduce((num, sum) => sum + num, 0)
+
+console.log(scoreAll)
