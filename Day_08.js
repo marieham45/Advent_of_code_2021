@@ -10,18 +10,18 @@ egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb
 gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce`;
 
 /*
-zero = 6;
-nine = 6;
-
 one = 2;
 four = 4;
 seven = 3;
 eight = 7;
 
-two = 5;
-three = 5;
-five = 5;
-six = 5;
+zero = 6 (cagedb);
+nine = 6 (cdfgeb);
+six = 6 (cdfgeb);
+
+two = 5 (gcdfa);
+three = 5 (fbcad);
+five = 5 (cdfbe);
 */
 
 
