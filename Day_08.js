@@ -16,14 +16,13 @@ seven = 3;
 eight = 7;
 
 zero = 6 (cagedb);
-nine = 6 (cdfgeb);
 six = 6 (cdfgeb);
+nine = 6 (cefabd);
 
 two = 5 (gcdfa);
 three = 5 (fbcad);
 five = 5 (cdfbe);
 */
-
 
 const signalLines = sampleInput.split("\n").map(line => line.split(" | ")).map(arr => arr.map(line => line.split(" ")));
 
@@ -48,6 +47,60 @@ const findDigits = (arr) => {
 const numberOfEasyDigits = signalLines.map(findDigits).reduce((num, sum) => sum +num);
 
 console.log(numberOfEasyDigits);
+
+
+/* PART 2 */
+
+const findDigits2 = (arr) => {
+
+  const easyDigits = arr[0].map(item => item.split("").sort().join(""));
+  const output = arr[1].map(item => item.split("").sort().join(""))
+  
+  for (let i = 0; i < output.length; i++) {
+        if (easyDigits.includes(output[i])) {
+          if (output[i].length === 2) {
+            output[i] = 1;
+          }
+          else if (output[i].length === 3) {
+            output[i] = 7;
+          }
+          else if (output[i].length === 4) {
+            output[i] = 4;
+          }
+          else if (output[i].length === 7) {
+            output[i] = 8;
+          }
+          else if (output[i].length === 6) {
+            if (output[i] === "abcdeg") {
+              output[i] = 0;
+            }
+            else if (output[i] === "bcdefg") {
+              output[i] = 6;
+            }
+            else if (output[i] === "abcdef") {
+              output[i] = 9;
+            }
+          }
+          else if (output[i].length === 5) {
+            if (output[i] === "acdfg") {
+              output[i] = 2;
+            }
+            else if (output[i] === "abcdf") {
+              output[i] = 3;
+            }
+            else if (output[i] === "bcdef") {
+              output[i] = 5;
+            }          }
+          }
+        
+  }
+      return {output} ;                      
+}
+
+const numberOfAllDigits = signalLines.map(findDigits2);
+
+
+console.log(numberOfAllDigits);
 
 
 
