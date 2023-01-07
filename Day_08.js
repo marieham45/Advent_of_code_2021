@@ -9,20 +9,6 @@ bdfegc cbegaf gecbf dfcage bdacg ed bedf ced adcbefg gebcd | ed bcgafe cdgba cbg
 egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb
 gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce`;
 
-/*
-one = 2;
-four = 4;
-seven = 3;
-eight = 7;
-
-zero = 6 (abcdeg);
-six = 6 (bcdefg);
-nine = 6 (abcdef);
-
-two = 5 (acdfg);
-three = 5 (abcdf);
-five = 5 (bcdef);
-*/
 
 const signalLines = sampleInput.split("\n").map(line => line.split(" | ")).map(arr => arr.map(line => line.split(" ")));
 
@@ -53,57 +39,52 @@ console.log(numberOfEasyDigits);
 
 const findDigits2 = (arr) => {
 
-  const digits = arr[0].map(item => item.split("").sort().join("")); // seřadit podle délky?
+  const digits = arr[0].map(item => item.split("").sort().join(""));
   const output = arr[1].map(item => item.split("").sort().join(""))
   
   for (let i = 0; i < output.length; i++) {
-    const easyDigits = digits.filter(code => code.length === 2 || code.length === 3 || code.length === 4 || code.length === 7); // seřadit podle délky?
-let zero = "";
-let six = "";
-let nine = "";
-let two = "";
-let three = "";
-let five = "";
+    const [one, four, seven, eight] = [digits.filter(code => code.length === 2).join(""),  digits.filter(code => code.length === 4).join(""), digits.filter(code => code.length === 3).join(""), digits.filter(code => code.length === 7).join("")];
+    const fourWithoutOne = four.split("").filter(char => char !== one.split("")[0]).filter(char => char !== one.split("")[1]).sort()
         if (digits.includes(output[i])) {
           if (output[i].length === 2) {
-            output[i] = 1;
+            output[i] = "1";
           }
           else if (output[i].length === 3) {
-            output[i] = 7;
+            output[i] = "7";
           }
           else if (output[i].length === 4) {
-            output[i] = 4;
+            output[i] = "4";
           }
           else if (output[i].length === 7) {
-            output[i] = 8;
+            output[i] = "8";
           }
           else if (output[i].length === 6) {
-            if (output[i] === "abcdeg") {
-              output[i] = 0;
+            if (!(output[i].split("").includes(one.split("")[0]) && output[i].split("").includes(one.split("")[1]))) {
+              output[i] = "6";
+              
             }
-            else if (output[i] === "bcdefg") {
-              output[i] = 6;
+            else if (! (output[i].split("").includes(four.split("")[0]) && output[i].split("").includes(four.split("")[1]) && output[i].split("").includes(four.split("")[2]) && output[i].split("").includes(four.split("")[3]))) {
+              output[i] = "0";
             }
-            else if (output[i] === "abcdef") {
-              output[i] = 9;
+            else {
+              output[i] = "9";
             }
           }
           else if (output[i].length === 5) {
-            if (output[i] === "acdfg") {
-              output[i] = 2;
+            if (output[i].split("").includes(one.split("")[0]) && output[i].split("").includes(one.split("")[1])) {
+              output[i] = "3";
             }
-            else if (output[i] === "abcdf") {
-              output[i] = 3;
+            else if (output[i].split("").includes(fourWithoutOne[0]) && output[i].split("").includes(fourWithoutOne[1])) {
+              output[i] = "5";
             }
-            else if (output[i] === "bcdef") {
-              output[i] = 5;
+            else {
+              output[i] = "2";
             }          }
           }
-        
   }
-      return output                      
+      return parseInt(output.join(""))                      
 }
 
-const numberOfAllDigits = signalLines.map(findDigits2);
+const numberOfAllDigits = signalLines.map(findDigits2).reduce((num, sum) => sum + num);
 
 console.log(numberOfAllDigits);
