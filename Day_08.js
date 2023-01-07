@@ -15,13 +15,13 @@ four = 4;
 seven = 3;
 eight = 7;
 
-zero = 6 (cagedb);
-six = 6 (cdfgeb);
-nine = 6 (cefabd);
+zero = 6 (abcdeg);
+six = 6 (bcdefg);
+nine = 6 (abcdef);
 
-two = 5 (gcdfa);
-three = 5 (fbcad);
-five = 5 (cdfbe);
+two = 5 (acdfg);
+three = 5 (abcdf);
+five = 5 (bcdef);
 */
 
 const signalLines = sampleInput.split("\n").map(line => line.split(" | ")).map(arr => arr.map(line => line.split(" ")));
@@ -53,11 +53,18 @@ console.log(numberOfEasyDigits);
 
 const findDigits2 = (arr) => {
 
-  const easyDigits = arr[0].map(item => item.split("").sort().join(""));
+  const digits = arr[0].map(item => item.split("").sort().join("")); // seřadit podle délky?
   const output = arr[1].map(item => item.split("").sort().join(""))
   
   for (let i = 0; i < output.length; i++) {
-        if (easyDigits.includes(output[i])) {
+    const easyDigits = digits.filter(code => code.length === 2 || code.length === 3 || code.length === 4 || code.length === 7); // seřadit podle délky?
+let zero = "";
+let six = "";
+let nine = "";
+let two = "";
+let three = "";
+let five = "";
+        if (digits.includes(output[i])) {
           if (output[i].length === 2) {
             output[i] = 1;
           }
@@ -94,13 +101,9 @@ const findDigits2 = (arr) => {
           }
         
   }
-      return {output} ;                      
+      return output                      
 }
 
 const numberOfAllDigits = signalLines.map(findDigits2);
 
-
 console.log(numberOfAllDigits);
-
-
-
